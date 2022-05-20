@@ -1,9 +1,10 @@
 {
     "bindings": [{
-            "authLevel": "anonymous",
+            "authLevel": "admin",
             "type": "httpTrigger",
             "direction": "in",
             "name": "req",
+            "route": "generic/contracts",
             "methods": [
                 "get"
             ]
@@ -14,5 +15,5 @@
             "name": "res"
         }
     ],
-    "scriptFile": "../dist/swagger.js"
+    "scriptFile": "../dist/trigger.js"
 }

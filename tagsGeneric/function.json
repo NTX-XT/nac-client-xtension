@@ -1,12 +1,13 @@
 {
     "bindings": [{
-            "authLevel": "anonymous",
+            "authLevel": "admin",
             "type": "httpTrigger",
             "direction": "in",
             "name": "req",
             "methods": [
                 "get"
-            ]
+            ],
+            "route": "generic/tags"
         },
         {
             "type": "http",
@@ -14,5 +15,5 @@
             "name": "res"
         }
     ],
-    "scriptFile": "../dist/swagger.js"
+    "scriptFile": "../dist/trigger.js"
 }

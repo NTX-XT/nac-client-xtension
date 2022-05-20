@@ -2,10 +2,13 @@
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
-    "outDir": "dist",
-    "rootDir": ".",
+    "outDir": "./dist",
+    "rootDir": "_src",
     "sourceMap": true,
     "strict": false,
     "esModuleInterop": true
-  }
+  },
+  "exclude": [
+    "_src/_refactoring/**/*"
+  ]
 }

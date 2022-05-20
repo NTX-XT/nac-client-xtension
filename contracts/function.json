@@ -4,6 +4,7 @@
             "type": "httpTrigger",
             "direction": "in",
             "name": "req",
+            "route": "contracts",
             "methods": [
                 "get"
             ]
@@ -14,5 +15,5 @@
             "name": "res"
         }
     ],
-    "scriptFile": "../dist/swagger.js"
+    "scriptFile": "../dist/trigger.js"
 }

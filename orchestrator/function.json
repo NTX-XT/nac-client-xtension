@@ -1,8 +1,0 @@
-{
-    "bindings": [{
-        "name": "context",
-        "type": "orchestrationTrigger",
-        "direction": "in"
-    }],
-    "scriptFile": "../dist/orchestrator/index.js"
-}

@@ -1,18 +1,19 @@
 {
-	"bindings": [
-		{
-			"authLevel": "anonymous",
-			"type": "httpTrigger",
-			"direction": "in",
-			"name": "req",
-			"methods": ["get"],
-			"route": "tenant/connectors/{id}/connections"
-		},
-		{
-			"type": "http",
-			"direction": "out",
-			"name": "res"
-		}
-	],
-	"scriptFile": "../dist/connections/index.js"
+    "bindings": [{
+            "authLevel": "anonymous",
+            "type": "httpTrigger",
+            "direction": "in",
+            "name": "req",
+            "route": "connections",
+            "methods": [
+                "get"
+            ]
+        },
+        {
+            "type": "http",
+            "direction": "out",
+            "name": "res"
+        }
+    ],
+    "scriptFile": "../dist/trigger.js"
 }
