@@ -11,7 +11,7 @@
     },
     "dependencies": {
         "@azure/storage-blob": "^12.8.0",
-        "@nwc-sdk/client": "^1.0.20",
+        "@nwc-sdk/client": "^1.0.21",
         "axios": "0.26.1",
         "durable-functions": "^1.5.3",
         "openapi-types": "^10.0.0"

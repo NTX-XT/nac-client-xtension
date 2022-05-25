@@ -1,0 +1,19 @@
+{
+    "bindings": [{
+            "authLevel": "admin",
+            "type": "httpTrigger",
+            "direction": "in",
+            "name": "req",
+            "route": "generic/workflows",
+            "methods": [
+                "get"
+            ]
+        },
+        {
+            "type": "http",
+            "direction": "out",
+            "name": "res"
+        }
+    ],
+    "scriptFile": "../dist/trigger.js"
+}

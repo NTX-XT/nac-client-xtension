@@ -4,9 +4,9 @@
             "type": "httpTrigger",
             "direction": "in",
             "name": "req",
-            "route": "generic/contracts",
+            "route": "generic/workflows/import",
             "methods": [
-                "get"
+                "post"
             ]
         },
         {
