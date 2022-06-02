@@ -2,7 +2,19 @@ import { AzureFunction, Context, HttpRequest } from "@azure/functions"
 import { ApiError, ClientCredentials, isError, Sdk } from "@nwc-sdk/client";
 import { getOperation } from "./callbacks";
 
+const logRequest: boolean = (process.env["LogRequest"]) ? (process.env["LogRequest"] === "true" ? true : false) : true
+
 const httpTrigger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
+    context.log("logRequest: " + logRequest)
+    if (logRequest) {
+        context.log.info({
+            method: req.method,
+            params: req.params,
+            query: req.query,
+            body: req.body
+        })
+    }
+
     const client = await connect(getConnectionDetails(req))
     if (isError(client)) {
         context.log.error("Unauthorized")
