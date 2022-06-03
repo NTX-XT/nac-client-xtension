@@ -1,5 +1,4 @@
-import { Connection, ConnectionDependency, Datasource, DatasourceDependency } from "@nwc-sdk/client";
-import { WorkflowPermissions } from "@nwc-sdk/client";
+import { Permission } from "@nwc-sdk/client";
 
 export interface XtensionWorkflow {
     id: string;
@@ -20,7 +19,5 @@ export interface XtensionWorkflow {
             actions: string[];
         }[];
     };
-    permisions: WorkflowPermissions;
-    // connections: ConnectionDependency[];
-    // datasources: DatasourceDependency[];
+    permisions: Permission[];
 }

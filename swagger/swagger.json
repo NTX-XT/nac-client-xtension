@@ -566,7 +566,6 @@
                     }
                 }
             }
-
         },
         "/workflows/import": {
             "post": {
@@ -603,6 +602,33 @@
                         },
                         "required": ["name", "key"]
                     }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/xtensionWorkflow"
+                        }
+                    },
+                    "401": {
+                        "description": "Unautorized"
+                    }
+                }
+            }
+        },
+        "/workflows/{workflowId}/publish": {
+            "post": {
+                "summary": "Publish workflow",
+                "description": "Publish workflow",
+                "operationId": "publish",
+                "produces": ["application/json"],
+                "parameters": [{
+                    "name": "workflowId",
+                    "in": "path",
+                    "description": "The workflow id",
+                    "type": "string",
+                    "required": true,
+                    "x-ntx-summary": "Workflow"
                 }],
                 "responses": {
                     "200": {
@@ -792,27 +818,13 @@
                     "x-ntx-summary": "Name"
                 },
                 "permissions": {
-                    "type": "object",
+                    "type": "array",
                     "x-ntx-control": "tree",
                     "additionalProperties": false,
                     "x-ntx-summary": "Permissions",
-                    "properties": {
-                        "workflowOwners": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/workflowPermission"
-                            },
-                            "x-ntx-summary": "Workflow Owners"
-                        },
-                        "businessOwners": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/workflowPermission"
-                            },
-                            "x-ntx-summary": "Business Owners"
-                        }
-                    },
-                    "required": ["workflowOwners", "businessOwners"]
+                    "items": {
+                        "$ref": "#/definitions/permission"
+                    }
                 },
                 "dependencies": {
                     "type": "object",
@@ -839,11 +851,11 @@
             },
             "required": ["id", "name", "permissions", "dependencies"]
         },
-        "workflowPermission": {
+        "permission": {
             "type": "object",
             "x-ntx-control": "tree",
             "additionalProperties": false,
-            "x-ntx-summary": "Workflow Permission",
+            "x-ntx-summary": "Permission",
             "properties": {
                 "id": {
                     "type": "string",
@@ -856,6 +868,12 @@
                 "type": {
                     "type": "string",
                     "x-ntx-summary": "Type"
+                },
+                "isOwner": {
+                    "type": "boolean"
+                },
+                "isUser": {
+                    "type": "boolean"
                 }
             },
             "required": ["id", "name", "type"]

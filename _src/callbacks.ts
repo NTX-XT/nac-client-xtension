@@ -115,6 +115,11 @@ const changeDatasource: ExecutionCallback<XtensionWorkflow> = async (client: Sdk
     return _toXtensionWorkflow(await client.saveWorkflow(workflow))
 }
 
+const publish: ExecutionCallback<XtensionWorkflow> = async (client: Sdk, request: HttpRequest): Promise<XtensionWorkflow> => {
+    const workflow = await client.getWorkflow(request.params.workflowId)
+    return _toXtensionWorkflow(await client.publishWorkflow(workflow))
+}
+
 const operations: { [route: string]: ExecutionCallback } = {
     'tenant': tenant,
     'contract': contract,
@@ -130,7 +135,8 @@ const operations: { [route: string]: ExecutionCallback } = {
     'export': exportWorkflow,
     'import': importWorkflow,
     'changeConnection': changeConnection,
-    'changeDatasource': changeDatasource
+    'changeDatasource': changeDatasource,
+    'publish': publish
 }
 
 export type ExecutionCallback<ReturnType = any> = (client: Sdk, request?: HttpRequest, context?: Context) => Promise<ReturnType | void>;
