@@ -847,6 +847,9 @@
                             "x-ntx-summary": "Workflows"
                         }
                     }
+                },
+                "formUrl": {
+                    "type": "string"
                 }
             },
             "required": ["id", "name", "permissions", "dependencies"]

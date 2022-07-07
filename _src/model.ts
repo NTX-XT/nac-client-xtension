@@ -20,4 +20,5 @@ export interface XtensionWorkflow {
         }[];
     };
     permisions: Permission[];
+    formUrl?: string;
 }

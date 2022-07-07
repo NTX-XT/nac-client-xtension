@@ -161,7 +161,8 @@ const _toXtensionWorkflow = (workflow: Workflow): XtensionWorkflow => ({
             actions: workflow.dependencies.workflows[workflowId].actionIds
         }))
     },
-    permisions: workflow.permissions
+    permisions: workflow.permissions,
+    formUrl: workflow.startFormUrl
 })
 
 
