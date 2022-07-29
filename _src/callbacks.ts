@@ -100,7 +100,9 @@ const importWorkflow: ExecutionCallback<XtensionWorkflow> = async (client: Sdk, 
 const changeConnection: ExecutionCallback<XtensionWorkflow> = async (client: Sdk, request: HttpRequest): Promise<XtensionWorkflow> => {
     const workflow = await client.getWorkflow(request.params.workflowId)
     const newConnection = await client.getConnection(request.query.newConnectionId)
-    WorkflowHelper.swapConnection(workflow, request.query.connectionId, newConnection)
+    const newContract = await client.getContract(newConnection.contractId)
+    const newContractSchema = await client.getContractSchema(newConnection.contractId)
+    WorkflowHelper.swapConnection(workflow, request.query.connectionId, newConnection, request.query.connectionName, newContract, newContractSchema)
     workflow.info.comments = `Changed connection id ${request.query.connectionId} with ${newConnection.name} (${newConnection.id})`
     return _toXtensionWorkflow(await client.saveWorkflow(workflow))
 }

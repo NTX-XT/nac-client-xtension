@@ -496,15 +496,23 @@
                         "name": "connectionId",
                         "in": "query",
                         "description": "The existing connection id in the workflow",
-                        "required": false,
+                        "required": true,
                         "type": "string",
                         "x-ntx-summary": "Connection Id"
+                    },
+                    {
+                        "name": "connectionName",
+                        "in": "query",
+                        "description": "The existing connection name in the workflow",
+                        "required": true,
+                        "type": "string",
+                        "x-ntx-summary": "Connection Name"
                     },
                     {
                         "name": "newConnectionId",
                         "in": "query",
                         "description": "The new connection id to use",
-                        "required": false,
+                        "required": true,
                         "type": "string",
                         "x-ntx-summary": "New Connection Id"
                     }
