@@ -1,4 +1,4 @@
-import { Permission } from "@nwc-sdk/client";
+import { Permission } from "@ntx-xt/nac-client";
 
 export interface XtensionWorkflow {
     id: string;

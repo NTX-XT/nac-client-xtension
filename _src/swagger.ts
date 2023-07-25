@@ -3,13 +3,19 @@ import path from 'path'
 import { readFile } from 'fs/promises'
 import { OpenAPIV2 } from 'openapi-types'
 
+interface XtensionCustomElements {
+	'x-ntx-basePath': string
+}
+interface XtensionSwaggerDocument extends OpenAPIV2.Document, XtensionCustomElements {
+
+}
 const swagger: AzureFunction = async function (context: Context, req: HttpRequest): Promise<void> {
 	const isGeneric: boolean = req.url.includes('/generic/');
 	const functionDirectory: string = isGeneric
 		? path.join(context.executionContext.functionDirectory, "../swagger")
 		: context.executionContext.functionDirectory
 	const swaggerDocumentPath = path.join(functionDirectory, 'swagger.json')
-	const swaggerDocument: OpenAPIV2.Document = await readFile(swaggerDocumentPath, { encoding: 'utf8' }).then(data => JSON.parse(data))
+	const swaggerDocument: XtensionSwaggerDocument = await readFile(swaggerDocumentPath, { encoding: 'utf8' }).then(data => JSON.parse(data))
 	swaggerDocument.host = new URL(req.url).host
 	if (isGeneric) {
 		swaggerDocument.info.title = `${swaggerDocument.info.title} (generic)`

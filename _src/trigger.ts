@@ -1,5 +1,5 @@
 import { AzureFunction, Context, HttpRequest } from "@azure/functions"
-import { ApiError, ClientCredentials, isError, Sdk } from "@nwc-sdk/client";
+import { ApiError, ClientCredentials, isError, Client } from "@ntx-xt/nac-client";
 import { getOperation } from "./callbacks";
 
 const logRequest: boolean = (process.env["LogRequest"]) ? (process.env["LogRequest"] === "true" ? true : false) : true
@@ -32,8 +32,8 @@ const httpTrigger: AzureFunction = async function (context: Context, req: HttpRe
     }
 };
 
-async function connect(connectionDetails: ClientCredentials | string): Promise<Sdk | ApiError> {
-    return (typeof connectionDetails === "string" ? Sdk.connectWithToken(connectionDetails) : Sdk.connectWithClientCredentials(connectionDetails))
+async function connect(connectionDetails: ClientCredentials | string): Promise<Client | ApiError> {
+    return (typeof connectionDetails === "string" ? Client.connectWithToken(connectionDetails) : Client.connectWithClientCredentials(connectionDetails))
         .then(sdk => sdk)
         .catch(error => error)
 }
