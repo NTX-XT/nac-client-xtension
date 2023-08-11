@@ -74,8 +74,12 @@ const contract: ExecutionCallback<Contract | undefined> = async (client: Client,
     }
 }
 
-const connectionProperties: ExecutionCallback<{ [key: string]: ConnectionProperty }> = async (client: Client, request: HttpRequest): Promise<{ [key: string]: ConnectionProperty }> => {
+const connectionPropertiesSchema: ExecutionCallback<{ [key: string]: ConnectionProperty }> = async (client: Client, request: HttpRequest): Promise<{ [key: string]: ConnectionProperty }> => {
     return await client.getContractConnectionProperties(request.params.contractId)
+}
+
+const connectionProperties: ExecutionCallback<{ [key: string]: ConnectionProperty }> = async (client: Client, request: HttpRequest): Promise<{ [key: string]: ConnectionProperty }> => {
+    return await client.getConnectionSchema(request.params.id).then((cn) => cn.properties)
 }
 
 const workflows: ExecutionCallback<WorkflowDesign[]> = async (client: Client, request: HttpRequest): Promise<WorkflowDesign[]> => {
@@ -152,6 +156,7 @@ const operations: { [route: string]: ExecutionCallback } = {
     'connections': connections,
     'datasources': datasources,
     'datasource': datasource,
+    'connectionPropertiesSchema': connectionPropertiesSchema,
     'connectionProperties': connectionProperties,
     'tags': tags,
     'workflows': workflows,

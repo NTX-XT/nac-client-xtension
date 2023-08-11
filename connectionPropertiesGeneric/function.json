@@ -1,10 +1,11 @@
 {
-    "bindings": [{
+    "bindings": [
+        {
             "authLevel": "admin",
             "type": "httpTrigger",
             "direction": "in",
             "name": "req",
-            "route": "generic/contracts/{contractId}/connectionproperties",
+            "route": "generic/connection/{id}/properties",
             "methods": [
                 "get"
             ]
