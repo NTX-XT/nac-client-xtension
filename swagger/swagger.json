@@ -1,1088 +1,1098 @@
 {
-    "swagger": "2.0",
-    "info": {
-        "title": "nwcsdk",
-        "description": "An API wrapper for the NWD SDK",
-        "version": "0.0.4"
-    },
-    "host": "defaulthost",
-    "x-ntx-host": "{{host}}",
-    "basePath": "/api",
-    "x-ntx-basePath": "/{{basePath}}",
-    "schemes": [
-        "https"
-    ],
-    "produces": [
-        "application/json"
-    ],
-    "x-ntx-render-version": 2,
-    "paths": {
-        "/tenant": {
-            "get": {
-                "summary": "Get tenant info",
-                "description": "Get tenant info",
-                "operationId": "getTenantInfo",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/tenant"
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
+  "swagger": "2.0",
+  "info": {
+    "title": "Nintex Workflow Cloud Xtended",
+    "description": "Additional Nintex Workflow Cloud Actions",
+    "version": "0.0.4"
+  },
+  "host": "{{host}}",
+  "basePath": "/api",
+  "schemes": ["https"],
+  "produces": ["application/json"],
+  "x-ntx-render-version": 2,
+  "paths": {
+    "/tenant": {
+      "get": {
+        "summary": "Get tenant info",
+        "description": "Get tenant info",
+        "operationId": "getTenantInfo",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/tenant"
             }
-        },
-        "/contract": {
-            "get": {
-                "summary": "Get connector",
-                "description": "Get connector",
-                "operationId": "getConnector",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "query",
-                        "description": "Connector Id",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "Connector Id"
-                    },
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "Connector Name",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "Connector Name"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/connector"
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/contracts": {
-            "get": {
-                "summary": "Get connectors",
-                "description": "Get connectors",
-                "operationId": "getConnectors",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/connector"
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/contracts/{contractId}/connectionpropertiesschema": {
-            "get": {
-                "summary": "Get connection properties schema",
-                "description": "Get connection properties schema",
-                "operationId": "getConnectorPropertiesSchema",
-                "produces": [
-                    "application/json"
-                ],
-                "x-ntx-visibility": "internal",
-                "parameters": [
-                    {
-                        "name": "contractId",
-                        "in": "path",
-                        "description": "The connector id",
-                        "type": "string",
-                        "required": true,
-                        "x-ntx-summary": "Connector"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "$ref": "#/definitions/connectionPropertyDefinition"
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/connection": {
-            "get": {
-                "summary": "Get connection",
-                "description": "Get connection",
-                "operationId": "getConnection",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "query",
-                        "description": "Connection Id",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "Connection Id"
-                    },
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "Connection Name",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "Connection Name"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/connection"
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            },
-            "post": {
-                "summary": "Create connection",
-                "description": "Create connection",
-                "operationId": "createConnections",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "properties",
-                        "in": "body",
-                        "description": "Connection properties",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "contractId": {
-                                    "type": "string",
-                                    "description": "The connector id",
-                                    "x-ntx-summary": "Connector"
-                                },
-                                "name": {
-                                    "type": "string",
-                                    "description": "The name of the connection",
-                                    "x-ntx-summary": "Name"
-                                },
-                                "parameters": {
-                                    "x-ntx-summary": "Connection Parameters",
-                                    "additionalProperties": false,
-                                    "type": "array",
-                                    "items": {
-                                        "type": "object",
-                                        "additionalProperties": false,
-                                        "x-ntx-summary": "Connection Parameter",
-                                        "properties": {
-                                            "name": {
-                                                "type": "string",
-                                                "description": "Parameter name",
-                                                "x-ntx-summary": "Name"
-                                            },
-                                            "value": {
-                                                "type": "string",
-                                                "description": "Parameter value",
-                                                "x-ntx-summary": "Value"
-                                            }
-                                        },
-                                        "required": [
-                                            "name",
-                                            "value"
-                                        ]
-                                    }
-                                }
-                            },
-                            "required": [
-                                "contractId",
-                                "parameters"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/connection"
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/connection/{id}/properties": {
-            "get": {
-                "summary": "Get connection properties",
-                "description": "Get connection properties",
-                "operationId": "getConnectionProperties",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Connection Id",
-                        "required": true,
-                        "type": "string",
-                        "x-ntx-summary": "Connection Id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": {
-                                "$ref": "#/definitions/connectionProperty"
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/connections": {
-            "get": {
-                "summary": "Get connections",
-                "description": "Get connections",
-                "operationId": "getConnections",
-                "produces": [
-                    "application/json"
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/connection"
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/datasources": {
-            "get": {
-                "summary": "Get datasources",
-                "description": "Get datasources",
-                "operationId": "getDatasources",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "contractId",
-                        "in": "query",
-                        "description": "Connector Id",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "Connector Id"
-                    },
-                    {
-                        "name": "connectionId",
-                        "in": "query",
-                        "description": "Connection Id",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "Connection Id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/datasource"
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/datasource": {
-            "get": {
-                "summary": "Get datasource",
-                "description": "Get datasource",
-                "operationId": "getDatasource",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "query",
-                        "description": "Id",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "Id"
-                    },
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "Name",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "Name"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/datasource"
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            },
-            "post": {
-                "summary": "Create datasource",
-                "description": "Create datasource",
-                "operationId": "createDatasource",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "properties",
-                        "in": "body",
-                        "description": "Datasource properties",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "description": "The name of the datasource",
-                                    "x-ntx-summary": "Name"
-                                },
-                                "description": {
-                                    "type": "string",
-                                    "x-ntx-summary": "Description"
-                                },
-                                "contractId": {
-                                    "type": "string",
-                                    "description": "The id of the connector",
-                                    "x-ntx-summary": "Connector Id"
-                                },
-                                "operationId": {
-                                    "type": "string",
-                                    "description": "The operation used by the datasource",
-                                    "x-ntx-summary": "Operation"
-                                },
-                                "connectionId": {
-                                    "type": "string",
-                                    "description": "The id of the connection",
-                                    "x-ntx-summary": "Connection Id"
-                                },
-                                "definition": {
-                                    "type": "string",
-                                    "description": "The datasource definition",
-                                    "x-ntx-summary": "Definition"
-                                }
-                            },
-                            "required": [
-                                "name",
-                                "description",
-                                "contractId",
-                                "operationId",
-                                "connectionId",
-                                "definition"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/datasource"
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/workflows": {
-            "get": {
-                "summary": "Get workflows",
-                "description": "Get workflows",
-                "operationId": "getWorkflows",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "tag",
-                        "in": "query",
-                        "description": "Workflow tag",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "Tag"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/workflowDesign"
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/workflow": {
-            "get": {
-                "summary": "Get workflow",
-                "description": "Get workflow",
-                "operationId": "getWorkflow",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "query",
-                        "description": "Workflow Id",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "Workflow Id"
-                    },
-                    {
-                        "name": "name",
-                        "in": "query",
-                        "description": "Workflow Name",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "Workflow Name"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/xtensionWorkflow"
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/workflows/{workflowId}/export": {
-            "post": {
-                "summary": "Export workflow",
-                "description": "Export workflow",
-                "operationId": "export",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "workflowId",
-                        "in": "path",
-                        "description": "The workflow id",
-                        "type": "string",
-                        "required": true,
-                        "x-ntx-summary": "Workflow"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "string"
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/workflows/{workflowId}/changeConnection": {
-            "post": {
-                "summary": "Change workflow connection",
-                "description": "Change workflow connection",
-                "operationId": "changeConnection",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "workflowId",
-                        "in": "path",
-                        "description": "The workflow id",
-                        "type": "string",
-                        "required": true,
-                        "x-ntx-summary": "Workflow"
-                    },
-                    {
-                        "name": "connectionId",
-                        "in": "query",
-                        "description": "The existing connection id in the workflow",
-                        "required": true,
-                        "type": "string",
-                        "x-ntx-summary": "Connection Id"
-                    },
-                    {
-                        "name": "connectionName",
-                        "in": "query",
-                        "description": "The existing connection name in the workflow",
-                        "required": true,
-                        "type": "string",
-                        "x-ntx-summary": "Connection Name"
-                    },
-                    {
-                        "name": "newConnectionId",
-                        "in": "query",
-                        "description": "The new connection id to use",
-                        "required": true,
-                        "type": "string",
-                        "x-ntx-summary": "New Connection Id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/xtensionWorkflow"
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/workflows/{workflowId}/changeDatasource": {
-            "post": {
-                "summary": "Change workflow datasource",
-                "description": "Change workflow datasource",
-                "operationId": "changeDatasource",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "workflowId",
-                        "in": "path",
-                        "description": "The workflow id",
-                        "type": "string",
-                        "required": true,
-                        "x-ntx-summary": "Workflow"
-                    },
-                    {
-                        "name": "datasourceId",
-                        "in": "query",
-                        "description": "The existing datasource id in the workflow",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "Datasource Id"
-                    },
-                    {
-                        "name": "newDatasourceId",
-                        "in": "query",
-                        "description": "The new datasource id to use",
-                        "required": false,
-                        "type": "string",
-                        "x-ntx-summary": "New Datasource Id"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/xtensionWorkflow"
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/workflows/import": {
-            "post": {
-                "summary": "Import workflow",
-                "description": "Import workflow",
-                "operationId": "import",
-                "produces": [
-                    "application/text"
-                ],
-                "parameters": [
-                    {
-                        "name": "properties",
-                        "in": "body",
-                        "description": "Import details",
-                        "required": true,
-                        "schema": {
-                            "type": "object",
-                            "additionalProperties": false,
-                            "properties": {
-                                "name": {
-                                    "type": "string",
-                                    "description": "The name to import the workflow as",
-                                    "x-ntx-summary": "Workflow Name"
-                                },
-                                "key": {
-                                    "type": "string",
-                                    "description": "The export key",
-                                    "x-ntx-summary": "Export Key"
-                                },
-                                "overwrite": {
-                                    "type": "boolean",
-                                    "description": "Overwrite existing workflow",
-                                    "x-ntx-summary": "Overwrite",
-                                    "default": false,
-                                    "x-ntx-initial": false
-                                }
-                            },
-                            "required": [
-                                "name",
-                                "key"
-                            ]
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/xtensionWorkflow"
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
-        },
-        "/workflows/{workflowId}/publish": {
-            "post": {
-                "summary": "Publish workflow",
-                "description": "Publish workflow",
-                "operationId": "publish",
-                "produces": [
-                    "application/json"
-                ],
-                "parameters": [
-                    {
-                        "name": "workflowId",
-                        "in": "path",
-                        "description": "The workflow id",
-                        "type": "string",
-                        "required": true,
-                        "x-ntx-summary": "Workflow"
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/xtensionWorkflow"
-                        }
-                    },
-                    "401": {
-                        "description": "Unautorized"
-                    }
-                }
-            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
         }
+      }
     },
-    "definitions": {
-        "tenant": {
-            "type": "object",
-            "x-ntx-control": "tree",
-            "additionalProperties": false,
-            "x-ntx-summary": "Tenant Information",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "x-ntx-summary": "Id"
-                },
-                "name": {
-                    "type": "string",
-                    "x-ntx-summary": "Name"
-                },
-                "apiManagerUrl": {
-                    "type": "string",
-                    "x-ntx-summary": "API Url endpoing"
-                },
-                "serviceRegion": {
-                    "type": "string",
-                    "x-ntx-summary": "Service region"
-                },
-                "host": {
-                    "type": "string",
-                    "x-ntx-summary": "Host"
-                },
-                "url": {
-                    "type": "string",
-                    "x-ntx-summary": "Url"
-                }
+    "/contract": {
+      "get": {
+        "summary": "Get connector",
+        "description": "Get connector",
+        "operationId": "getConnector",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Connector Id",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "Connector Id"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Connector Name",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "Connector Name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/connector"
             }
-        },
-        "connector": {
-            "type": "object",
-            "x-ntx-control": "tree",
-            "additionalProperties": false,
-            "x-ntx-summary": "Connector",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "x-ntx-summary": "Id"
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/contracts": {
+      "get": {
+        "summary": "Get connectors",
+        "description": "Get connectors",
+        "operationId": "getConnectors",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/connector"
+              }
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/contracts/{contractId}/connectionpropertiesschema": {
+      "get": {
+        "summary": "Get connection properties schema",
+        "description": "Get connection properties schema",
+        "operationId": "getConnectorPropertiesSchema",
+        "produces": ["application/json"],
+        "x-ntx-visibility": "internal",
+        "parameters": [
+          {
+            "name": "contractId",
+            "in": "path",
+            "description": "The connector id",
+            "type": "string",
+            "required": true,
+            "x-ntx-summary": "Connector"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/connectionPropertyDefinition"
+              }
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/connection": {
+      "get": {
+        "summary": "Get connection",
+        "description": "Get connection",
+        "operationId": "getConnection",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Connection Id",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "Connection Id"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Connection Name",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "Connection Name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/connection"
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create connection",
+        "description": "Create connection",
+        "operationId": "createConnections",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "Connection properties",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "contractId": {
+                  "type": "string",
+                  "description": "The connector id",
+                  "x-ntx-summary": "Connector"
                 },
                 "name": {
-                    "type": "string",
-                    "x-ntx-summary": "Name"
+                  "type": "string",
+                  "description": "The name of the connection",
+                  "x-ntx-summary": "Name"
+                },
+                "parameters": {
+                  "x-ntx-summary": "Connection Parameters",
+                  "additionalProperties": false,
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "x-ntx-summary": "Connection Parameter",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Parameter name",
+                        "x-ntx-summary": "Name"
+                      },
+                      "value": {
+                        "type": "string",
+                        "description": "Parameter value",
+                        "x-ntx-summary": "Value"
+                      }
+                    },
+                    "required": ["name", "value"]
+                  }
+                }
+              },
+              "required": ["contractId", "parameters"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/connection"
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/connection/{id}/properties": {
+      "get": {
+        "summary": "Get connection properties",
+        "description": "Get connection properties",
+        "operationId": "getConnectionProperties",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Connection Id",
+            "required": true,
+            "type": "string",
+            "x-ntx-summary": "Connection Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/connectionProperty"
+              }
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/connections": {
+      "get": {
+        "summary": "Get connections",
+        "description": "Get connections",
+        "operationId": "getConnections",
+        "produces": ["application/json"],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/connection"
+              }
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/datasources": {
+      "get": {
+        "summary": "Get datasources",
+        "description": "Get datasources",
+        "operationId": "getDatasources",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "contractId",
+            "in": "query",
+            "description": "Connector Id",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "Connector Id"
+          },
+          {
+            "name": "connectionId",
+            "in": "query",
+            "description": "Connection Id",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "Connection Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/datasource"
+              }
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/datasource": {
+      "get": {
+        "summary": "Get datasource",
+        "description": "Get datasource",
+        "operationId": "getDatasource",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Id",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "Id"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Name",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "Name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/datasource"
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create datasource",
+        "description": "Create datasource",
+        "operationId": "createDatasource",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "Datasource properties",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The name of the datasource",
+                  "x-ntx-summary": "Name"
                 },
                 "description": {
-                    "type": "string",
-                    "x-ntx-summary": "Description"
-                }
-            }
-        },
-        "connection": {
-            "type": "object",
-            "x-ntx-control": "tree",
-            "additionalProperties": false,
-            "x-ntx-summary": "Connection",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "x-ntx-summary": "Id"
-                },
-                "name": {
-                    "type": "string",
-                    "x-ntx-summary": "Name"
-                },
-                "isValid": {
-                    "type": "string",
-                    "x-ntx-summary": "Is Valid"
+                  "type": "string",
+                  "x-ntx-summary": "Description"
                 },
                 "contractId": {
-                    "type": "string",
-                    "x-ntx-summary": "Connector Id"
-                }
-            }
-        },
-        "datasource": {
-            "type": "object",
-            "x-ntx-control": "tree",
-            "additionalProperties": false,
-            "x-ntx-summary": "Datasource",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "x-ntx-summary": "Id"
-                },
-                "name": {
-                    "type": "string",
-                    "x-ntx-summary": "Name"
-                },
-                "contractId": {
-                    "type": "string",
-                    "x-ntx-summary": "Connector Id"
-                },
-                "connectionId": {
-                    "type": "string",
-                    "x-ntx-summary": "Connection Id"
+                  "type": "string",
+                  "description": "The id of the connector",
+                  "x-ntx-summary": "Connector Id"
                 },
                 "operationId": {
-                    "type": "string",
-                    "x-ntx-summary": "Operation"
+                  "type": "string",
+                  "description": "The operation used by the datasource",
+                  "x-ntx-summary": "Operation"
                 },
-                "description": {
-                    "type": "string",
-                    "x-ntx-summary": "Description"
+                "connectionId": {
+                  "type": "string",
+                  "description": "The id of the connection",
+                  "x-ntx-summary": "Connection Id"
                 },
                 "definition": {
-                    "type": "string",
-                    "x-ntx-summary": "Definition"
+                  "type": "string",
+                  "description": "The datasource definition",
+                  "x-ntx-summary": "Definition"
                 }
-            },
-            "required": [
-                "id",
+              },
+              "required": [
                 "name",
-                "operationId",
-                "contractId",
-                "connectionId",
                 "description",
-                "definition"
-            ]
-        },
-        "connectionPropertyDefinition": {
-            "type": "object",
-            "x-ntx-control": "tree",
-            "additionalProperties": false,
-            "x-ntx-summary": "Connection Property Definition",
-            "properties": {
-                "title": {
-                    "type": "string",
-                    "x-ntx-summary": "Title"
-                },
-                "type": {
-                    "type": "string",
-                    "x-ntx-summary": "Type"
-                },
-                "description": {
-                    "type": "string",
-                    "x-ntx-summary": "Description"
-                }
-            }
-        },
-        "connectionProperty": {
-            "type": "object",
-            "x-ntx-control": "tree",
-            "additionalProperties": false,
-            "x-ntx-summary": "Connection Property",
-            "properties": {
-                "title": {
-                    "type": "string",
-                    "x-ntx-summary": "Title"
-                },
-                "type": {
-                    "type": "string",
-                    "x-ntx-summary": "Type"
-                },
-                "value": {
-                    "type": "string",
-                    "x-ntx-summary": "Value"
-                }
-            }
-        },
-        "workflowDesign": {
-            "type": "object",
-            "x-ntx-control": "tree",
-            "additionalProperties": false,
-            "x-ntx-summary": "Workflow Design",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "x-ntx-summary": "Id"
-                },
-                "name": {
-                    "type": "string",
-                    "x-ntx-summary": "Name"
-                }
-            },
-            "required": [
-                "id",
-                "name"
-            ]
-        },
-        "xtensionWorkflow": {
-            "type": "object",
-            "x-ntx-control": "tree",
-            "additionalProperties": false,
-            "x-ntx-summary": "Workflow",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "x-ntx-summary": "Id"
-                },
-                "name": {
-                    "type": "string",
-                    "x-ntx-summary": "Name"
-                },
-                "permissions": {
-                    "type": "array",
-                    "x-ntx-control": "tree",
-                    "additionalProperties": false,
-                    "x-ntx-summary": "Permissions",
-                    "items": {
-                        "$ref": "#/definitions/permission"
-                    }
-                },
-                "dependencies": {
-                    "type": "object",
-                    "x-ntx-control": "tree",
-                    "additionalProperties": false,
-                    "x-ntx-summary": "Dependencies",
-                    "properties": {
-                        "connectors": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/connectorDependency"
-                            },
-                            "x-ntx-summary": "Connectors"
-                        },
-                        "workflows": {
-                            "type": "array",
-                            "items": {
-                                "type": "string"
-                            },
-                            "x-ntx-summary": "Workflows"
-                        }
-                    }
-                },
-                "formUrl": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "id",
-                "name",
-                "permissions",
-                "dependencies"
-            ]
-        },
-        "permission": {
-            "type": "object",
-            "x-ntx-control": "tree",
-            "additionalProperties": false,
-            "x-ntx-summary": "Permission",
-            "properties": {
-                "id": {
-                    "type": "string",
-                    "x-ntx-summary": "Id"
-                },
-                "name": {
-                    "type": "string",
-                    "x-ntx-summary": "Name"
-                },
-                "type": {
-                    "type": "string",
-                    "x-ntx-summary": "Type"
-                },
-                "isOwner": {
-                    "type": "boolean"
-                },
-                "isUser": {
-                    "type": "boolean"
-                }
-            },
-            "required": [
-                "id",
-                "name",
-                "type"
-            ]
-        },
-        "connectorDependency": {
-            "type": "object",
-            "x-ntx-control": "tree",
-            "additionalProperties": false,
-            "x-ntx-summary": "Connector Dependency",
-            "properties": {
-                "connectorId": {
-                    "type": "string",
-                    "x-ntx-summary": "Connector Id"
-                },
-                "connectorName": {
-                    "type": "string",
-                    "x-ntx-summary": "Connector Name"
-                },
-                "connections": {
-                    "type": "array",
-                    "x-ntx-summary": "Connections",
-                    "items": {
-                        "$ref": "#/definitions/connectionDependency"
-                    }
-                }
-            },
-            "required": [
-                "connectorId",
-                "connectorName",
-                "connections"
-            ]
-        },
-        "connectionDependency": {
-            "type": "object",
-            "x-ntx-control": "tree",
-            "additionalProperties": false,
-            "x-ntx-summary": "Connection Dependency",
-            "properties": {
-                "connectionId": {
-                    "type": "string",
-                    "x-ntx-summary": "Connection Id"
-                },
-                "connectionName": {
-                    "type": "string",
-                    "x-ntx-summary": "Connection Name"
-                },
-                "actions": {
-                    "type": "array",
-                    "x-ntx-summary": "Actions",
-                    "items": {
-                        "type": "string"
-                    }
-                },
-                "datasources": {
-                    "type": "array",
-                    "x-ntx-summary": "Datasources",
-                    "items": {
-                        "type": "string"
-                    }
-                }
-            },
-            "required": [
+                "contractId",
+                "operationId",
                 "connectionId",
-                "connectionName",
-                "actions",
-                "datasources"
-            ]
+                "definition"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/datasource"
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
         }
+      }
+    },
+    "/workflows": {
+      "get": {
+        "summary": "Get workflows",
+        "description": "Get workflows",
+        "operationId": "getWorkflows",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "query",
+            "description": "Workflow tag",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "Tag"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/workflowDesign"
+              }
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/workflow": {
+      "get": {
+        "summary": "Get workflow",
+        "description": "Get workflow",
+        "operationId": "getWorkflow",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Workflow Id",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "Workflow Id"
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "description": "Workflow Name",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "Workflow Name"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/xtensionWorkflow"
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/workflowInstance": {
+      "get": {
+        "summary": "Get workflow instance",
+        "description": "Get workflow instance",
+        "operationId": "getWorkflowInstance",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Instance Id",
+            "required": true,
+            "type": "string",
+            "x-ntx-summary": "Instance Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/workflowInstance"
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/export": {
+      "post": {
+        "summary": "Export workflow",
+        "description": "Export workflow",
+        "operationId": "export",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "description": "The workflow id",
+            "type": "string",
+            "required": true,
+            "x-ntx-summary": "Workflow"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "string"
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/changeConnection": {
+      "post": {
+        "summary": "Change workflow connection",
+        "description": "Change workflow connection",
+        "operationId": "changeConnection",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "description": "The workflow id",
+            "type": "string",
+            "required": true,
+            "x-ntx-summary": "Workflow"
+          },
+          {
+            "name": "connectionId",
+            "in": "query",
+            "description": "The existing connection id in the workflow",
+            "required": true,
+            "type": "string",
+            "x-ntx-summary": "Connection Id"
+          },
+          {
+            "name": "connectionName",
+            "in": "query",
+            "description": "The existing connection name in the workflow",
+            "required": true,
+            "type": "string",
+            "x-ntx-summary": "Connection Name"
+          },
+          {
+            "name": "newConnectionId",
+            "in": "query",
+            "description": "The new connection id to use",
+            "required": true,
+            "type": "string",
+            "x-ntx-summary": "New Connection Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/xtensionWorkflow"
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/changeDatasource": {
+      "post": {
+        "summary": "Change workflow datasource",
+        "description": "Change workflow datasource",
+        "operationId": "changeDatasource",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "description": "The workflow id",
+            "type": "string",
+            "required": true,
+            "x-ntx-summary": "Workflow"
+          },
+          {
+            "name": "datasourceId",
+            "in": "query",
+            "description": "The existing datasource id in the workflow",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "Datasource Id"
+          },
+          {
+            "name": "newDatasourceId",
+            "in": "query",
+            "description": "The new datasource id to use",
+            "required": false,
+            "type": "string",
+            "x-ntx-summary": "New Datasource Id"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/xtensionWorkflow"
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/workflows/import": {
+      "post": {
+        "summary": "Import workflow",
+        "description": "Import workflow",
+        "operationId": "import",
+        "produces": ["application/text"],
+        "parameters": [
+          {
+            "name": "properties",
+            "in": "body",
+            "description": "Import details",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "description": "The name to import the workflow as",
+                  "x-ntx-summary": "Workflow Name"
+                },
+                "key": {
+                  "type": "string",
+                  "description": "The export key",
+                  "x-ntx-summary": "Export Key"
+                },
+                "overwrite": {
+                  "type": "boolean",
+                  "description": "Overwrite existing workflow",
+                  "x-ntx-summary": "Overwrite",
+                  "default": false,
+                  "x-ntx-initial": false
+                }
+              },
+              "required": ["name", "key"]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/xtensionWorkflow"
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/publish": {
+      "post": {
+        "summary": "Publish workflow",
+        "description": "Publish workflow",
+        "operationId": "publish",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "workflowId",
+            "in": "path",
+            "description": "The workflow id",
+            "type": "string",
+            "required": true,
+            "x-ntx-summary": "Workflow"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/xtensionWorkflow"
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
+    },
+    "/workflows/{workflowId}/startWorkflow": {
+      "post": {
+        "summary": "Start workflow",
+        "description": "Start a workflow",
+        "operationId": "startWorkflow",
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "startData",
+            "in": "body",
+            "description": "Start Data",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "workflowId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/workflowInstance"
+            }
+          },
+          "401": {
+            "description": "Unautorized"
+          }
+        }
+      }
     }
+  },
+  "definitions": {
+    "tenant": {
+      "type": "object",
+      "x-ntx-control": "tree",
+      "additionalProperties": false,
+      "x-ntx-summary": "Tenant Information",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-ntx-summary": "Id"
+        },
+        "name": {
+          "type": "string",
+          "x-ntx-summary": "Name"
+        },
+        "apiManagerUrl": {
+          "type": "string",
+          "x-ntx-summary": "API Url endpoing"
+        },
+        "serviceRegion": {
+          "type": "string",
+          "x-ntx-summary": "Service region"
+        },
+        "host": {
+          "type": "string",
+          "x-ntx-summary": "Host"
+        },
+        "url": {
+          "type": "string",
+          "x-ntx-summary": "Url"
+        }
+      }
+    },
+    "connector": {
+      "type": "object",
+      "x-ntx-control": "tree",
+      "additionalProperties": false,
+      "x-ntx-summary": "Connector",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-ntx-summary": "Id"
+        },
+        "name": {
+          "type": "string",
+          "x-ntx-summary": "Name"
+        },
+        "description": {
+          "type": "string",
+          "x-ntx-summary": "Description"
+        }
+      }
+    },
+    "connection": {
+      "type": "object",
+      "x-ntx-control": "tree",
+      "additionalProperties": false,
+      "x-ntx-summary": "Connection",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-ntx-summary": "Id"
+        },
+        "name": {
+          "type": "string",
+          "x-ntx-summary": "Name"
+        },
+        "isValid": {
+          "type": "string",
+          "x-ntx-summary": "Is Valid"
+        },
+        "contractId": {
+          "type": "string",
+          "x-ntx-summary": "Connector Id"
+        }
+      }
+    },
+    "datasource": {
+      "type": "object",
+      "x-ntx-control": "tree",
+      "additionalProperties": false,
+      "x-ntx-summary": "Datasource",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-ntx-summary": "Id"
+        },
+        "name": {
+          "type": "string",
+          "x-ntx-summary": "Name"
+        },
+        "contractId": {
+          "type": "string",
+          "x-ntx-summary": "Connector Id"
+        },
+        "connectionId": {
+          "type": "string",
+          "x-ntx-summary": "Connection Id"
+        },
+        "operationId": {
+          "type": "string",
+          "x-ntx-summary": "Operation"
+        },
+        "description": {
+          "type": "string",
+          "x-ntx-summary": "Description"
+        },
+        "definition": {
+          "type": "string",
+          "x-ntx-summary": "Definition"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "operationId",
+        "contractId",
+        "connectionId",
+        "description",
+        "definition"
+      ]
+    },
+    "connectionPropertyDefinition": {
+      "type": "object",
+      "x-ntx-control": "tree",
+      "additionalProperties": false,
+      "x-ntx-summary": "Connection Property Definition",
+      "properties": {
+        "title": {
+          "type": "string",
+          "x-ntx-summary": "Title"
+        },
+        "type": {
+          "type": "string",
+          "x-ntx-summary": "Type"
+        },
+        "description": {
+          "type": "string",
+          "x-ntx-summary": "Description"
+        }
+      }
+    },
+    "connectionProperty": {
+      "type": "object",
+      "x-ntx-control": "tree",
+      "additionalProperties": false,
+      "x-ntx-summary": "Connection Property",
+      "properties": {
+        "title": {
+          "type": "string",
+          "x-ntx-summary": "Title"
+        },
+        "type": {
+          "type": "string",
+          "x-ntx-summary": "Type"
+        },
+        "value": {
+          "type": "string",
+          "x-ntx-summary": "Value"
+        }
+      }
+    },
+    "workflowDesign": {
+      "type": "object",
+      "x-ntx-control": "tree",
+      "additionalProperties": false,
+      "x-ntx-summary": "Workflow Design",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-ntx-summary": "Id"
+        },
+        "name": {
+          "type": "string",
+          "x-ntx-summary": "Name"
+        }
+      },
+      "required": ["id", "name"]
+    },
+    "workflowInstance": {
+      "type": "object",
+      "x-ntx-control": "tree",
+      "additionalProperties": false,
+      "x-ntx-summary": "Workflow Instance",
+      "properties": {
+        "instanceId": {
+          "type": "string",
+          "x-ntx-summary": "Id"
+        },
+        "status": {
+          "type": "string",
+          "x-ntx-summary": "Status"
+        }
+      },
+      "required": ["instanceId"]
+    },
+    "xtensionWorkflow": {
+      "type": "object",
+      "x-ntx-control": "tree",
+      "additionalProperties": false,
+      "x-ntx-summary": "Workflow",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-ntx-summary": "Id"
+        },
+        "name": {
+          "type": "string",
+          "x-ntx-summary": "Name"
+        },
+        "permissions": {
+          "type": "array",
+          "x-ntx-control": "tree",
+          "additionalProperties": false,
+          "x-ntx-summary": "Permissions",
+          "items": {
+            "$ref": "#/definitions/permission"
+          }
+        },
+        "dependencies": {
+          "type": "object",
+          "x-ntx-control": "tree",
+          "additionalProperties": false,
+          "x-ntx-summary": "Dependencies",
+          "properties": {
+            "connectors": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/connectorDependency"
+              },
+              "x-ntx-summary": "Connectors"
+            },
+            "workflows": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "x-ntx-summary": "Workflows"
+            }
+          }
+        },
+        "formUrl": {
+          "type": "string"
+        }
+      },
+      "required": ["id", "name", "permissions", "dependencies"]
+    },
+    "permission": {
+      "type": "object",
+      "x-ntx-control": "tree",
+      "additionalProperties": false,
+      "x-ntx-summary": "Permission",
+      "properties": {
+        "id": {
+          "type": "string",
+          "x-ntx-summary": "Id"
+        },
+        "name": {
+          "type": "string",
+          "x-ntx-summary": "Name"
+        },
+        "type": {
+          "type": "string",
+          "x-ntx-summary": "Type"
+        },
+        "isOwner": {
+          "type": "boolean"
+        },
+        "isUser": {
+          "type": "boolean"
+        }
+      },
+      "required": ["id", "name", "type"]
+    },
+    "connectorDependency": {
+      "type": "object",
+      "x-ntx-control": "tree",
+      "additionalProperties": false,
+      "x-ntx-summary": "Connector Dependency",
+      "properties": {
+        "connectorId": {
+          "type": "string",
+          "x-ntx-summary": "Connector Id"
+        },
+        "connectorName": {
+          "type": "string",
+          "x-ntx-summary": "Connector Name"
+        },
+        "connections": {
+          "type": "array",
+          "x-ntx-summary": "Connections",
+          "items": {
+            "$ref": "#/definitions/connectionDependency"
+          }
+        }
+      },
+      "required": ["connectorId", "connectorName", "connections"]
+    },
+    "connectionDependency": {
+      "type": "object",
+      "x-ntx-control": "tree",
+      "additionalProperties": false,
+      "x-ntx-summary": "Connection Dependency",
+      "properties": {
+        "connectionId": {
+          "type": "string",
+          "x-ntx-summary": "Connection Id"
+        },
+        "connectionName": {
+          "type": "string",
+          "x-ntx-summary": "Connection Name"
+        },
+        "actions": {
+          "type": "array",
+          "x-ntx-summary": "Actions",
+          "items": {
+            "type": "string"
+          }
+        },
+        "datasources": {
+          "type": "array",
+          "x-ntx-summary": "Datasources",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["connectionId", "connectionName", "actions", "datasources"]
+    }
+  }
 }

@@ -1,0 +1,45 @@
+{
+  "x-ntx-connection-properties": {
+    "type": "object",
+    "properties": {
+      "client_id": {
+        "type": "string",
+        "title": "Client ID",
+        "description": "Generated from the tenant settings page."
+      },
+      "client_secret": {
+        "type": "string",
+        "title": "Client secret",
+        "format": "password",
+        "description": "Generated from the tenant settings page."
+      },
+      "host": {
+        "type": "string",
+        "title": "Host",
+        "description": "The domain that the middleware is hosted (i.e. myFunction.azurewebsites.net)"
+      },
+      "basePath": {
+        "type": "string",
+        "title": "Base path",
+        "description": "The base path for the middleware functions, excluding the precedding slash (api, not /api)"
+      }
+    },
+    "required": ["client_id", "client_secret", "host", "basePath"]
+  },
+  "x-ntx-connection-properties_apikey": {
+    "type": "object",
+    "properties": {
+      "host": {
+        "type": "string",
+        "title": "Host",
+        "description": "The domain that the middleware is hosted (i.e. myFunction.azurewebsites.net)"
+      },
+      "basePath": {
+        "type": "string",
+        "title": "Base path",
+        "description": "The base path for the middleware functions, excluding the precedding slash (api, not /api)"
+      }
+    },
+    "required": ["host", "basePath"]
+  }
+}

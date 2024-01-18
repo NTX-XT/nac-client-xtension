@@ -5,7 +5,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "workflows/{workflowId}/changeConnection",
+      "route": "auth",
       "methods": ["post"]
     },
     {
@@ -14,5 +14,5 @@
       "name": "res"
     }
   ],
-  "scriptFile": "../dist/trigger.js"
+  "scriptFile": "../dist/auth.js"
 }

@@ -5,7 +5,7 @@
       "type": "httpTrigger",
       "direction": "in",
       "name": "req",
-      "route": "workflows/{workflowId}/changeConnection",
+      "route": "workflows/{workflowId}/startWorkflow",
       "methods": ["post"]
     },
     {

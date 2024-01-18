@@ -9,5 +9,5 @@
 		"esModuleInterop": true,
 		"forceConsistentCasingInFileNames": true
 	},
-	"exclude": ["_src/_refactoring/**/*"]
+	"exclude": ["_src/_refactoring/**/*", "node-modules/**/*"]
 }

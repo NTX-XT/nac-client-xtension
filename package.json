@@ -10,14 +10,14 @@
         "test": "echo \"No tests yet...\""
     },
     "dependencies": {
+        "@azure/functions": "^3.0.0",
         "@azure/storage-blob": "^12.8.0",
-        "@ntx-xt/nac-client": "^1.0.1",
+        "@ntx-xt/nac-client": "^1.0.5",
         "axios": "0.26.1",
         "durable-functions": "^1.5.3",
         "openapi-types": "^10.0.0"
     },
     "devDependencies": {
-        "@azure/functions": "^3.0.0",
         "typescript": "^4.0.0"
     }
 }

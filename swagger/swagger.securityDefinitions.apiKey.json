@@ -1,31 +1,14 @@
 {
-    "securityDefinitions": {
-        "FunctionKey": {
-            "name": "code",
-            "in": "query",
-            "type": "apiKey",
-            "x-ntx-connection-properties": {
-                "type": "object",
-                "properties": {
-                    "host": {
-                        "type": "string",
-                        "title": "Host",
-                        "description": "The domain that the middleware is hosted (i.e. myFunction.azurewebsites.net)"
-                    },
-                    "basePath": {
-                        "type": "string",
-                        "title": "Base path",
-                        "description": "The base path for the middleware functions, excluding the precedding slash (api, not /api)"
-                    }
-                },
-                "required": [
-                    "host",
-                    "basePath"
-                ]
-            }
-        }
-    },
-    "security": [{
-        "FunctionKey": []
-    }]
+  "securityDefinitions": {
+    "FunctionKey": {
+      "name": "code",
+      "in": "query",
+      "type": "apiKey"
+    }
+  },
+  "security": [
+    {
+      "FunctionKey": []
+    }
+  ]
 }
